@@ -3,10 +3,22 @@
         "string": "the QuIcK brOwn fox",
         "zeroIndex" : 0,
         "threeIndex" : 3,
-        "trimMe" : "  tuna "
+        "trimMe" : "  tuna ",
+        "peoples": "159824500000598712"
     },
 
     "spec": {
+        "substringLast":{
+    		"peoples": "=substringLast(@(2,peoples),11)",
+    		"peoplesLong": "=substringLast(' 15555555555555555555555',11)",
+    		"badArgs": "=substringLast('',11)",
+    		"badArgs2": "=substringLast('Ac123',0)",
+    		"badArgs3": "=substringLast('Ac123',-1)",
+    		"badArgs4": "=substringLast(@(2,peoplesNotFound),11)",
+    		"peoplesBlank": "=substringLast(' ',11)",
+    		"peoplesShort": "=substringLast('Ac123',11)",
+    		"peoplesOne": "=substringLast('Ac123',1)"
+    	},
         "lower": {
             "leading":  "=toLower(@(2,string))",
             "trailing": "=toLower(^value)",
@@ -35,6 +47,7 @@
             "badArgs1": "=substring(0, 9, @(2, substring))",  // input is not a string
             "badArgs2": "=substring(0, 4, 9)",      // ranges are ok, but input string is not a string
             "badArgs3": "=substring('', 0, 0)",
+            "badArgs39": "=substring('', 0, 2)",
             "badArgs4": "=substring('abc', 0, 0)",  // start and end are the same, both are zero
             "badArgs5": "=substring('abc', 1, 1)",  // start and end are the same, and non-zero
             "badArgs6": "=substring('abc', 1, 0)",  // start before end
@@ -64,8 +77,16 @@
         //
         // from the input, but overwritten by modify
         "trimMe" : "tuna",
+        "peoples": "159824500000598712",
         //
         // the things modify added
+        "substringLast": {
+    		"peoples": "00000598712",
+    		"peoplesLong": "55555555555",
+    		"peoplesBlank": " ",
+    		"peoplesShort": "Ac123",
+    		"peoplesOne": "3"
+        },
         "lower": {
             "leading": "the quick brown fox",
             "trailing": "jumped over the lazy dog",

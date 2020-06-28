@@ -15,10 +15,10 @@
  */
 package com.bazaarvoice.jolt.modifier.function;
 
-import com.bazaarvoice.jolt.common.Optional;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.bazaarvoice.jolt.common.Optional;
 
 @SuppressWarnings( "deprecated" )
 public class Strings {
@@ -76,6 +76,49 @@ public class Strings {
             }
             return Optional.of(sb.toString());
         }
+    }
+    
+    public static final class substringLast extends Function.ListFunction {
+
+		@Override
+		protected Optional<Object> applyList(List<Object> argList) {
+			 // There is only one path that leads to success and many
+            //  ways for this to fail.   So using a do/while loop
+            //  to make the bailing easy.
+            do {
+
+                // if argList is null or not the right size; bail
+                if(argList == null || argList.size() != 2 ) {
+                    break;
+                }
+
+                if ( ! ( argList.get(0) instanceof String &&
+                         argList.get(1) instanceof Integer ) ) {
+                    break;
+                }
+
+                // If we get here, then all these casts should work.
+                String tuna = (String) argList.get(0);
+                int endOffset = (Integer) argList.get(1);
+                
+
+                if(endOffset <= 0 || tuna.length() <= 0) {
+                	break;
+                }
+                
+                // return the original string if the offset is greater than it. Ex: (' ', 3)
+                if(endOffset > tuna.length()) {
+                	return Optional.of(tuna);
+                }
+                return Optional.of(tuna.substring(tuna.length() - endOffset));
+
+            } while( false );
+
+            // if we got here, then return an Optional.empty.
+            return Optional.empty();
+        
+		}
+    	
     }
 
     public static final class substring extends Function.ListFunction {
