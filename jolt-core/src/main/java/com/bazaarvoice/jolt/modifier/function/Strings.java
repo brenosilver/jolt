@@ -15,11 +15,10 @@
  */
 package com.bazaarvoice.jolt.modifier.function;
 
-import com.bazaarvoice.jolt.common.Optional;
-import com.bazaarvoice.jolt.utils.StringTools;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.bazaarvoice.jolt.common.Optional;
 
 @SuppressWarnings( "deprecated" )
 public class Strings {
@@ -103,7 +102,7 @@ public class Strings {
                 int endOffset = (Integer) argList.get(1);
                 
 
-                if(endOffset <= 0 || StringTools.isEmpty(tuna)) {
+                if(endOffset <= 0 || tuna.length() <= 0) {
                 	break;
                 }
                 
