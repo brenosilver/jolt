@@ -4,17 +4,31 @@
         "zeroIndex" : 0,
         "threeIndex" : 3,
         "trimMe" : "  tuna ",
-        "peoples": "159824500000598712"
+        "peoples": "159824500000598712",
+        "datetime": "2020-06-27T22:00:00"
     },
 
     "spec": {
+    	"splitGet": {
+    		"datetimeZero": "=splitGet('T',@(2,datetime),0)",
+    		"datetimeOne": "=splitGet('T',@(2,datetime),1)",
+    		"badArgs": "=splitGet('T',@(2,datetime),2)",				// position is greated than the splitted array
+    		"badArgs2": "=splitGet('T',@(2,datetime),-1)",				// position is negative
+    		"badArgs3": "=splitGet('T','',0)",							// string is empty
+    		"datetimeNoMatch": "=splitGet('T','2020-06-2722:00:00',0)",
+    		"badArgs4": "=splitGet('T','2020-06-2722:00:00',1)",		// array size 1 and position out of bounds
+    		"badArgs5": "=splitGet('T',@(2,datetimeNotFound),0)",		// mull string
+    		"badArgs6": "=splitGet(4,'1234987',0)",						// separator needs to be a String
+    		"badArgs7": "=splitGet('T','2020-06-27T22:00:00',0,3)"		// bad argument number
+    	},
         "substringLast":{
     		"peoples": "=substringLast(@(2,peoples),11)",
     		"peoplesLong": "=substringLast(' 15555555555555555555555',11)",
-    		"badArgs": "=substringLast('',11)",
-    		"badArgs2": "=substringLast('Ac123',0)",
-    		"badArgs3": "=substringLast('Ac123',-1)",
-    		"badArgs4": "=substringLast(@(2,peoplesNotFound),11)",
+    		"badArgs": "=substringLast('',11)",							// empty string
+    		"badArgs2": "=substringLast('Ac123',0)",					// 0 offset
+    		"badArgs3": "=substringLast('Ac123',-1)",					// negative offset
+    		"badArgs4": "=substringLast(@(2,peoplesNotFound),11)",		// null string
+    		"badArgs5": "=substringLast('Ac123',1,3)",					// bad argument number
     		"peoplesBlank": "=substringLast(' ',11)",
     		"peoplesShort": "=substringLast('Ac123',11)",
     		"peoplesOne": "=substringLast('Ac123',1)"
@@ -78,8 +92,14 @@
         // from the input, but overwritten by modify
         "trimMe" : "tuna",
         "peoples": "159824500000598712",
+        "datetime": "2020-06-27T22:00:00",
         //
         // the things modify added
+        "splitGet": {
+    		"datetimeZero": "2020-06-27",
+    		"datetimeOne": "22:00:00",
+    		"datetimeNoMatch": "2020-06-2722:00:00"
+    	},
         "substringLast": {
     		"peoples": "00000598712",
     		"peoplesLong": "55555555555",

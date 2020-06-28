@@ -182,7 +182,35 @@ public class Strings {
             return Optional.of( sb.toString() );
         }
     }
+    
+    
+	public static final class splitGet extends Function.ArgDrivenListFunction<String> {
 
+		@Override
+		protected Optional<Object> applyList(final String separator, List args) {
+
+			if (separator == null || args == null || args.size() != 2 || !(args.get(1) instanceof Integer)) {
+				return Optional.empty();
+			}
+
+			// only try to split input strings
+			String inputString = (String) args.get(0);
+			Integer position = (Integer) args.get(1);
+			if (inputString instanceof String && position >= 0 && inputString.length() > 0) {
+				List<String> strings = Arrays.asList(inputString.split(separator));
+				
+				//return the string in the position from args1
+				if(strings.size() > 0 && strings.size()-1 >= position) {
+					return Optional.of(strings.get(position));
+				}
+				
+			}
+
+			return Optional.empty();
+		}
+	}
+	
+	
     public static final class split extends Function.ArgDrivenSingleFunction<String, List> {
       @Override
       protected Optional<List> applySingle(final String separator, final Object source) {

@@ -65,6 +65,7 @@ import java.util.List;
  *      toUpper     - returns toUpper value of toString() value of first arg, rest is ignored
  *      concat      - concatenate all given arguments' toString() values
  *      substringLast - returns the last n characters from the first arg
+ *      splitGet	- splits the string and return the element at the arg1 position.
  *
  *      min       - returns the min of all numbers provided in the arguments, non-numbers are ignored
  *      max       - returns the max of all numbers provided in the arguments, non-numbers are ignored
