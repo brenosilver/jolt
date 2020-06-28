@@ -15,6 +15,8 @@
  */
 package com.bazaarvoice.jolt.modifier.function;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -227,6 +229,41 @@ public class Strings {
         }
       }
     }
+    
+    
+	public static final class toCurrency extends Function.ListFunction {
+
+		@Override
+		protected Optional<Object> applyList(List<Object> argList) {
+
+			// first argument is the amount
+			// second argument is the pattern
+			if (argList == null || argList.size() != 2 || !(argList.get(1) instanceof String)) {
+				return Optional.empty();
+			}
+
+			Object amount = argList.get(0);
+			String pattern = (String) argList.get(1);
+			DecimalFormat formatter = new DecimalFormat(pattern);
+
+			// Since the amount can be either a String or a number (Long, Double, Integer)
+			// We have to return the corresponding type.
+			if (amount instanceof String) {
+				if (((String) amount).indexOf(".") >= 0) {
+					return Optional.of(formatter.format(new BigDecimal((String) amount)));
+				}
+				return Optional.of(formatter.format(Long.valueOf((String) amount)));
+			}
+
+			if (amount instanceof Double || amount instanceof Integer || amount instanceof Long) {
+				return Optional.of(new BigDecimal(formatter.format(amount)));
+			}
+
+			return Optional.empty();
+		}
+
+	}
+    
 
 
     public static final class leftPad extends Function.ArgDrivenListFunction<String> {
