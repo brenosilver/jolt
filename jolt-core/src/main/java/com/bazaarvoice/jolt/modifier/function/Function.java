@@ -66,6 +66,7 @@ import java.util.List;
  *      concat      - concatenate all given arguments' toString() values
  *      substringLast - returns the last n characters from the first arg
  *      splitGet	- splits the string and return the element at the arg1 position.
+ *      toCurrency	- formats the string or number using the second argument.
  *
  *      min       - returns the min of all numbers provided in the arguments, non-numbers are ignored
  *      max       - returns the max of all numbers provided in the arguments, non-numbers are ignored
